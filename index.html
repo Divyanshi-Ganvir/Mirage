@@ -1091,9 +1091,9 @@
         .products-header .header-actions .scan-barcode-btn {
             background: var(--beige-card);
             border: 1px solid var(--beige-border);
-            padding: 8px 14px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--navy-dark);
             cursor: pointer;
@@ -1101,15 +1101,15 @@
             box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .products-header .header-actions .scan-barcode-btn:hover {
             border-color: var(--gold-accent);
             transform: translateY(-2px);
         }
         .products-header .header-actions .scan-barcode-btn svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             stroke: var(--gold-accent);
             fill: none;
             stroke-width: 2;
@@ -1427,6 +1427,37 @@
             color: var(--text-tertiary);
             font-size: 13px;
             padding: 12px 0;
+        }
+
+        .routine-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .routine-header-actions .scan-barcode-btn {
+            background: var(--beige-card);
+            border: 1px solid var(--beige-border);
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .routine-header-actions .scan-barcode-btn:hover {
+            border-color: var(--gold-accent);
+            transform: translateY(-2px);
+        }
+        .routine-header-actions .scan-barcode-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gold-accent);
+            fill: none;
+            stroke-width: 2;
         }
 
         /* ============================================================
@@ -3539,7 +3570,10 @@
             <div class="login-box">
                 <div class="login-logo">
                     <div class="icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" fill="rgba(255,255,255,0.25)" stroke="#fff" stroke-width="1.5"/><path d="M8.5 16.5 Q10 14 12 15.5 Q14 17 15.5 15" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        <!-- Droplet icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" />
+                        </svg>
                     </div>
                     <h2>Mirage</h2>
                     <p>Beauty Intelligence</p>
@@ -3592,7 +3626,10 @@
         <div class="skin-test-screen" id="skinTestScreen">
             <div class="test-header">
                 <div class="test-icon">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                    <!-- Droplet icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" />
+                    </svg>
                 </div>
                 <h2>Skin Profile Quiz</h2>
                 <p>Help us personalize your experience</p>
@@ -3630,7 +3667,10 @@
                 <header class="app-header">
                     <div class="logo">
                         <div class="icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" fill="rgba(255,255,255,0.25)" stroke="#fff" stroke-width="1.5"/><path d="M8.5 16.5 Q10 14 12 15.5 Q14 17 15.5 15" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            <!-- Droplet icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" />
+                            </svg>
                         </div>
                         <span>Mirage</span>
                     </div>
@@ -3809,13 +3849,9 @@
                         <div class="products-header">
                             <h3>
                                 <svg viewBox="0 0 24 24"><path d="M8.5 3L3 8.5l12 12L20.5 15l-12-12z"/><path d="M10.5 5L5 10.5"/><circle cx="15.5" cy="15.5" r="2"/></svg>
-                                Your Routine
+                                Products
                             </h3>
                             <div class="header-actions">
-                                <button class="scan-barcode-btn" onclick="openAddProduct()">
-                                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                                    Add
-                                </button>
                                 <button class="scan-barcode-btn" onclick="openBarcodeScanner()">
                                     <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 9v6M11 9v6M15 9v6M19 9v6"/></svg>
                                     Scan
@@ -3850,13 +3886,21 @@
 
                     <!-- ROUTINE -->
                     <div class="page" id="page-routine">
-                        <div style="margin-bottom:16px;">
-                            <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
-                                <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                                My Routine
-                                <span style="font-size:11px;font-weight:400;color:var(--text-tertiary);">AM / PM</span>
-                            </h3>
-                            <p style="font-size:13px; color:var(--text-secondary);">Build your daily skincare ritual</p>
+                        <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                            <div>
+                                <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
+                                    <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    My Routine
+                                    <span style="font-size:11px;font-weight:400;color:var(--text-tertiary);">AM / PM</span>
+                                </h3>
+                                <p style="font-size:13px; color:var(--text-secondary);">Build your daily skincare ritual</p>
+                            </div>
+                            <div class="routine-header-actions">
+                                <button class="scan-barcode-btn" onclick="openAddProduct()">
+                                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                                    Add
+                                </button>
+                            </div>
                         </div>
                         <div class="routine-container" id="routineContainer">
                             <div class="routine-block">
@@ -4042,7 +4086,7 @@
             id: 101,
             name: 'CeraVe Hydrating Cleanser',
             brand: 'CeraVe',
-            price: '$15',
+            price: '£15',
             category: 'cleanser',
             image: 'https://images.unsplash.com/photo-1597931752949-98c74b5b159f?w=400&q=80&auto=format&fit=crop',
             transparency: 88,
@@ -4068,7 +4112,7 @@
             id: 102,
             name: 'The Ordinary Niacinamide 10%',
             brand: 'The Ordinary',
-            price: '$10',
+            price: '£10',
             category: 'serum',
             image: 'https://images.unsplash.com/photo-1715750968540-841103c78d47?w=400&q=80&auto=format&fit=crop',
             transparency: 92,
@@ -4094,7 +4138,7 @@
             id: 103,
             name: 'La Roche-Posay Anthelios SPF 50',
             brand: 'La Roche-Posay',
-            price: '$34',
+            price: '£34',
             category: 'sunscreen',
             image: 'https://images.unsplash.com/photo-1618478297003-218b7eddfe68?w=400&q=80&auto=format&fit=crop',
             transparency: 84,
@@ -4118,7 +4162,7 @@
             id: 104,
             name: 'Drunk Elephant Protini Cream',
             brand: 'Drunk Elephant',
-            price: '$68',
+            price: '£68',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1616750819456-5cdee9b85d22?w=400&q=80&auto=format&fit=crop',
             transparency: 79,
@@ -4142,7 +4186,7 @@
             id: 105,
             name: "Paula's Choice 2% BHA",
             brand: "Paula's Choice",
-            price: '$33',
+            price: '£33',
             category: 'serum',
             image: 'https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=400&q=80&auto=format&fit=crop',
             transparency: 86,
@@ -4166,7 +4210,7 @@
             id: 106,
             name: 'Clinique Moisture Surge',
             brand: 'Clinique',
-            price: '$42',
+            price: '£42',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1613803745940-581e4b908e79?w=400&q=80&auto=format&fit=crop',
             transparency: 82,
@@ -4190,7 +4234,7 @@
             id: 107,
             name: "Kiehl's Ultra Facial Cream",
             brand: "Kiehl's",
-            price: '$38',
+            price: '£38',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1616750819574-7e38aa8046fa?w=400&q=80&auto=format&fit=crop',
             transparency: 81,
@@ -4214,7 +4258,7 @@
             id: 108,
             name: 'Farmacy Honey Halo',
             brand: 'Farmacy',
-            price: '$45',
+            price: '£45',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1639996112254-645a5f6fe946?w=400&q=80&auto=format&fit=crop',
             transparency: 94,
@@ -4240,7 +4284,7 @@
             id: 109,
             name: 'Glow Recipe Watermelon Glow',
             brand: 'Glow Recipe',
-            price: '$39',
+            price: '£39',
             category: 'serum',
             image: 'https://images.unsplash.com/photo-1623143445418-40c192fa3d11?w=400&q=80&auto=format&fit=crop',
             transparency: 90,
@@ -4264,7 +4308,7 @@
             id: 110,
             name: 'SkinCeuticals C E Ferulic',
             brand: 'SkinCeuticals',
-            price: '$166',
+            price: '£166',
             category: 'serum',
             image: 'https://images.unsplash.com/photo-1609097164468-b498a4ab436a?w=400&q=80&auto=format&fit=crop',
             transparency: 76,
@@ -4288,7 +4332,7 @@
             id: 111,
             name: 'Tatcha Dewy Skin Cream',
             brand: 'Tatcha',
-            price: '$72',
+            price: '£72',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1630682103595-25bd3b95caf2?w=400&q=80&auto=format&fit=crop',
             transparency: 87,
@@ -4314,7 +4358,7 @@
             id: 112,
             name: 'Supergoop! Unseen Sunscreen',
             brand: 'Supergoop!',
-            price: '$38',
+            price: '£38',
             category: 'sunscreen',
             image: 'https://images.unsplash.com/photo-1714041691623-35d1b8c5e28b?w=400&q=80&auto=format&fit=crop',
             transparency: 91,
@@ -4338,7 +4382,7 @@
             id: 113,
             name: 'Biossance Squalane + Vitamin C',
             brand: 'Biossance',
-            price: '$72',
+            price: '£72',
             category: 'serum',
             image: 'https://images.unsplash.com/photo-1615540732559-882b276c6786?w=400&q=80&auto=format&fit=crop',
             transparency: 96,
@@ -4364,7 +4408,7 @@
             id: 114,
             name: 'Youth to the People Adaptogen Cream',
             brand: 'Youth to the People',
-            price: '$58',
+            price: '£58',
             category: 'moisturizer',
             image: 'https://images.unsplash.com/photo-1665763630810-e6251bdd392d?w=400&q=80&auto=format&fit=crop',
             transparency: 93,
@@ -4388,7 +4432,7 @@
             id: 115,
             name: 'Krave Beauty Matcha Hemp Hydrating Cleanser',
             brand: 'Krave Beauty',
-            price: '$16',
+            price: '£16',
             category: 'cleanser',
             image: 'https://images.unsplash.com/photo-1764599955359-1cfaefad0658?w=400&q=80&auto=format&fit=crop',
             transparency: 95,
@@ -4493,7 +4537,6 @@
             skinGoals: ['even-toned'],
             lifestyle: ['moderate-sun', 'good-sleep'],
             productReviews: {},
-            // NEW: transparency priorities
             transparencyPriorities: [],
         };
 
@@ -4666,12 +4709,10 @@
             let weightSum = 0;
             priorities.forEach(dimKey => {
                 const score = getDimensionScore(product, dimKey);
-                // Weight: higher priority = more weight (all equal for now, but we could add weighting later)
                 totalScore += score;
                 weightSum += 1;
             });
             const avg = weightSum > 0 ? Math.round(totalScore / weightSum) : (product.match || 85);
-            // Blend with existing match (70% priority, 30% original match)
             return Math.round(avg * 0.7 + (product.match || 85) * 0.3);
         }
 
@@ -4928,7 +4969,6 @@
                     `;
             }).join('');
 
-            // Show a helpful note on the transparency step
             let extraNote = '';
             if (q.key === 'transparencyPriorities') {
                 extraNote = `
@@ -5012,14 +5052,12 @@
             appState.concerns = concerns;
             appState.skinSensitivity = testAnswers.sensitivity || 'medium';
             appState.skinGoals = testAnswers.goal ? [testAnswers.goal] : ['even-toned'];
-            // NEW: save transparency priorities
             const priorities = testAnswers.transparencyPriorities || [];
             appState.transparencyPriorities = priorities;
             updateScoreFromConcerns(concerns);
             appState.skinTestCompleted = true;
             saveState();
 
-            // Update auth if not guest
             if (!appState.isGuest) {
                 const saved = localStorage.getItem('mirageAuth');
                 if (saved) {
@@ -5100,7 +5138,6 @@
             const displayName = appState.isGuest ? 'Guest' : (appState.userFullName || appState.userName || 'Alex');
             document.getElementById('userName').textContent = displayName;
 
-            // Render transparency priorities
             const priorities = getPriorityDimensions();
             const container = document.getElementById('transparencyPriorities');
             if (priorities.length > 0) {
@@ -5157,13 +5194,11 @@
 
             const allProducts = getAllProducts();
 
-            // Top picks: sort by priority match (if priorities exist) or match
             const sortedByPriority = [...allProducts].map(p => {
                 const priorityMatch = computePriorityMatch(p);
                 const highlight = isPriorityHighlight(p);
                 return { ...p, priorityMatch, highlight };
             }).sort((a, b) => {
-                // If priorities exist, sort by priorityMatch first, then match
                 if (appState.transparencyPriorities.length > 0) {
                     if (a.highlight && !b.highlight) return -1;
                     if (!a.highlight && b.highlight) return 1;
@@ -5174,7 +5209,6 @@
 
             renderProductCards('homeProducts', sortedByPriority.slice(0, 4), true);
 
-            // Most transparent: sort by transparency
             const sortedByTransparency = [...allProducts].sort((a, b) => (b.transparency || 0) - (a.transparency || 0));
             renderProductCards('homeTransparent', sortedByTransparency.slice(0, 4), false);
         }
@@ -5231,7 +5265,6 @@
             items = items.map(p => {
                 let matchBoost = 0;
                 if (p.skinType && p.skinType.includes(skinType)) matchBoost += 10;
-                // Priority boost
                 const priorityMatch = computePriorityMatch(p);
                 return { ...p, match: Math.min(100, (p.match || 80) + matchBoost), priorityMatch };
             });
@@ -5251,7 +5284,6 @@
                 );
             }
 
-            // Sort: if priorities exist, use priorityMatch; else match
             items = items.sort((a, b) => {
                 if (appState.transparencyPriorities.length > 0) {
                     return (b.priorityMatch || 0) - (a.priorityMatch || 0);
@@ -5496,7 +5528,6 @@
             const sourcingScore = Math.round((brandEthics + ethicsScore) / 2);
             const manufacturingScore = Math.min(100, Math.max(20, 100 - (carbon || 50) + 20));
 
-            // Build breakdown data with priority detection
             const priorities = appState.transparencyPriorities || [];
             const breakdownData = [
                 { icon: '🌿', key: 'ingredient-safety', label: 'Ingredient Safety', value: ingredientSafety,
@@ -5522,7 +5553,6 @@
                     cls: carbon > 70 ? 'good' : carbon > 40 ? 'warn' : 'bad' },
             ];
 
-            // Mark priority rows
             const breakdown = breakdownData.map(f => ({
                 ...f,
                 isPriority: priorities.includes(f.key),
@@ -5547,7 +5577,6 @@
                     parentCompany, cls: 'blue' });
             if (badIngredients.length === 0 && ingredients.length > 0) badges.push({ label: '✅ All Safe', cls: 'green' });
 
-            // Priority badge
             const isHighlight = priorities.length > 0 && isPriorityHighlight(product);
             if (isHighlight) {
                 badges.push({ label: '✦ Top Priority Match', cls: 'priority' });
@@ -5558,7 +5587,6 @@
 
             const sources = product.sources || [];
 
-            // Build main content
             let mainHtml = `
                     <div class="detail-header">
                         <div class="dh-icon">
@@ -5572,7 +5600,6 @@
                         </div>
                     </div>
 
-                    <!-- TRANSPARENCY SCORE CARD -->
                     <div class="transparency-card">
                         <div class="tc-header">
                             <span class="tc-label">🔍 Transparency Score</span>
@@ -5592,7 +5619,6 @@
                         </div>
                     </div>
 
-                    <!-- TRANSPARENCY BREAKDOWN — Detailed with priority highlighting -->
                     <div class="transparency-breakdown">
                         <div class="tb-title">
                             <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
@@ -5624,7 +5650,6 @@
                         </div>
                     </div>
 
-                    <!-- PRODUCT ORIGIN -->
                     <div class="product-origin">
                         <div class="po-title">
                             <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="3"/></svg>
@@ -5637,7 +5662,6 @@
                         <div class="po-row"><span class="po-label">Vegan</span><span class="po-value">${vegan}</span></div>
                     </div>
 
-                    <!-- SOURCES & REFERENCES -->
                     <div class="product-sources">
                         <div class="ps-title">📚 Sources & References</div>
                         ${sources.length === 0 ? '<div class="ps-empty">No sources available for this product.</div>' :
@@ -6190,7 +6214,6 @@
                 document.getElementById('skinTypeTag').innerHTML =
                     `<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ${skinTypeDisplay[skinType] || 'Normal'}`;
 
-                // Show recommended products (prioritized by match)
                 let recs = getAllProducts();
                 recs = recs.map(p => ({
                     ...p,
