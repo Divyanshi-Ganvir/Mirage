@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +83,7 @@
             box-shadow: var(--shadow-lg);
         }
 
-        @media (min-width: 431px) {
+        @media (min-width: 431px) and (max-width: 640px) {
             #app {
                 border-radius: 32px;
                 margin-top: 20px;
@@ -3111,6 +3112,360 @@
         .modal-overlay .modal .modal-actions .btn-secondary:hover {
             background: var(--beige-border);
         }
+
+        /* ===== APP-BODY (header + main content column) ===== */
+        .app-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+                   RESPONSIVE — TABLET & DESKTOP
+                   ============================================================ */
+
+        /* ── Tablet (641px – 1024px): full-width app, wider grids ── */
+        @media (min-width: 641px) {
+            #app {
+                max-width: 100%;
+                border-radius: 0;
+                margin-top: 0;
+                height: 100vh;
+                height: 100dvh;
+            }
+
+            .main-content {
+                padding: 0 28px 24px;
+            }
+
+            /* Wider product scroll cards */
+            .product-card {
+                min-width: 190px;
+                max-width: 190px;
+            }
+
+            /* Products grid: 3 columns on tablet */
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+            }
+
+            /* Concerns grid: 3 columns */
+            .concerns-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* Quick actions: more breathing room */
+            .quick-actions .qa {
+                padding: 18px 14px;
+            }
+            .quick-actions .qa .icon-wrap {
+                width: 50px;
+                height: 50px;
+                border-radius: 16px;
+            }
+            .quick-actions .qa .icon-wrap svg {
+                width: 24px;
+                height: 24px;
+            }
+            .quick-actions .qa .label {
+                font-size: 12px;
+            }
+
+            /* Login screen — center card */
+            .login-screen {
+                background: var(--beige-secondary);
+            }
+            .login-screen .login-box {
+                max-width: 420px;
+            }
+
+            /* Skin test — constrain width */
+            .skin-test-screen {
+                align-items: center;
+            }
+            .skin-test-screen .test-card {
+                max-width: 560px;
+                width: 100%;
+            }
+            .skin-test-screen .test-actions {
+                max-width: 560px;
+                width: 100%;
+            }
+
+            /* Greeting text bigger on tablet */
+            .greeting .name {
+                font-size: 32px;
+            }
+
+            /* Detail sheet: centered dialog on tablet */
+            .product-detail-overlay {
+                align-items: center;
+                padding: 40px;
+            }
+            .product-detail-overlay .detail-sheet {
+                border-radius: var(--radius-lg);
+                max-width: 600px;
+                border-bottom: 1px solid var(--beige-border);
+                max-height: 88vh;
+            }
+
+            /* Ingredient list: 2-column grid */
+            .ingredient-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            /* Routine blocks side by side */
+            .routine-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+            }
+
+            /* Bigger section headers */
+            .section-header h3 {
+                font-size: 19px;
+            }
+
+            /* Scan frame bigger */
+            .scan-frame {
+                max-width: 480px;
+            }
+        }
+
+        /* ── Desktop (1025px+): sidebar nav layout ── */
+        @media (min-width: 1025px) {
+            html, body {
+                overflow: hidden;
+            }
+
+            #app {
+                max-width: 100%;
+            }
+
+            /* Switch appContent to row so nav sits on left */
+            #appContent {
+                flex-direction: row !important;
+            }
+
+            .app-nav {
+                order: -1; /* sidebar on left */
+            }
+
+            /* ── Sidebar Navigation ── */
+            .app-nav {
+                flex-direction: column;
+                width: 220px;
+                min-width: 220px;
+                height: 100vh;
+                height: 100dvh;
+                border-top: none;
+                border-right: 1px solid var(--beige-border);
+                padding: 24px 12px 32px;
+                justify-content: flex-start;
+                gap: 4px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                box-shadow: 4px 0 20px rgba(10, 28, 47, 0.04);
+                flex-shrink: 0;
+            }
+
+            /* Sidebar brand mark at top */
+            .app-nav::before {
+                content: 'Mirage';
+                font-family: 'Playfair Display', serif;
+                font-size: 22px;
+                font-weight: 600;
+                background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                display: block;
+                padding: 8px 12px 20px;
+                letter-spacing: -0.3px;
+                border-bottom: 1px solid var(--beige-border);
+                margin-bottom: 12px;
+                width: 100%;
+            }
+
+            .app-nav .nav-item {
+                flex-direction: row;
+                justify-content: flex-start;
+                width: 100%;
+                padding: 11px 16px;
+                border-radius: var(--radius-sm);
+                gap: 12px;
+                min-width: unset;
+            }
+
+            .app-nav .nav-item svg {
+                width: 22px;
+                height: 22px;
+                flex-shrink: 0;
+            }
+
+            .app-nav .nav-item span {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0;
+            }
+
+            .app-nav .nav-item .nav-dot {
+                display: none !important;
+            }
+
+            .app-nav .nav-item.active {
+                background: var(--beige-secondary);
+                color: var(--navy-dark);
+            }
+
+            .app-nav .nav-item.active svg {
+                stroke: var(--navy-dark);
+            }
+
+            .app-nav .nav-item:hover:not(.active) {
+                background: var(--beige-hover);
+                color: var(--navy-mid);
+            }
+
+            .app-nav .nav-item .nav-badge {
+                position: static;
+                margin-left: auto;
+                font-size: 9px;
+                padding: 2px 7px;
+            }
+
+            /* ── Main content area fills remaining width ── */
+            .app-header {
+                flex-shrink: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                overflow-y: auto;
+                padding: 0 40px 32px;
+                max-width: 1100px;
+                width: 100%;
+                margin: 0 auto;
+                /* Reset to block flow for side-by-side reading */
+                align-self: auto;
+            }
+
+            /* ── Content max-width wrapper ── */
+            .page {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            /* Products grid: 4 columns on desktop */
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            /* Home product scroll wider cards */
+            .product-card {
+                min-width: 200px;
+                max-width: 200px;
+            }
+
+            /* Concerns grid: 4 columns */
+            .concerns-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            /* Ingredient list: 3-col */
+            .ingredient-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* Greeting */
+            .greeting .name {
+                font-size: 36px;
+            }
+
+            /* Skin score card bigger */
+            .skin-score-card {
+                padding: 24px 28px;
+            }
+            .skin-score-ring {
+                width: 88px;
+                height: 88px;
+            }
+            .skin-score-ring svg {
+                width: 88px;
+                height: 88px;
+            }
+            .skin-score-ring .score-label {
+                font-size: 22px;
+            }
+
+            /* Quick actions: 6-column row on desktop */
+            .quick-actions {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            /* Detail overlay as centered modal */
+            .product-detail-overlay {
+                align-items: center;
+                padding: 60px;
+            }
+            .product-detail-overlay .detail-sheet {
+                border-radius: var(--radius-lg);
+                max-width: 680px;
+                border-bottom: 1px solid var(--beige-border);
+                max-height: 85vh;
+            }
+
+            /* Routine: 2-column layout */
+            .routine-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Scan frame bigger */
+            .scan-frame {
+                max-width: 520px;
+            }
+
+            /* Login screen */
+            .login-screen .login-box {
+                max-width: 460px;
+                padding: 40px 36px;
+            }
+
+            /* Skin test centered */
+            .skin-test-screen .test-card {
+                max-width: 640px;
+            }
+            .skin-test-screen .test-actions {
+                max-width: 640px;
+            }
+
+            /* Toast positioning */
+            .toast {
+                left: calc(220px + 50%);
+            }
+        }
+
+        /* ── Very wide desktop (1400px+) ── */
+        @media (min-width: 1400px) {
+            .main-content {
+                padding: 0 60px 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .ingredient-list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -3204,6 +3559,11 @@
         MAIN APP
         ============================================================ -->
         <div id="appContent" style="display:none;flex-direction:column;height:100%;">
+
+            <!-- NAVIGATION SIDEBAR (desktop) / BOTTOM NAV (mobile) -->
+            <!-- nav rendered below, pulled to front on desktop via order:0 -->
+
+            <div class="app-body">
 
             <!-- HEADER -->
             <header class="app-header">
@@ -3489,6 +3849,8 @@
                 </div>
 
             </div>
+
+            </div><!-- /app-body -->
 
             <!-- NAVIGATION (6 tabs) -->
             <nav class="app-nav" id="appNav">
