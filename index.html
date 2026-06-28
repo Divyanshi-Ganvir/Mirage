@@ -405,7 +405,7 @@
         }
 
         /* ============================================================
-                   SKIN TEST — after signup or guest
+                   SKIN TEST — now with 5 steps (added transparency priorities)
                    ============================================================ */
         .skin-test-screen {
             display: none;
@@ -731,6 +731,40 @@
             fill: none;
             stroke: currentColor;
             stroke-width: 2;
+        }
+
+        /* Transparency Priority Tags on Home */
+        .transparency-priorities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 4px 0 14px;
+        }
+        .transparency-priorities .tp-tag {
+            background: var(--beige-card);
+            border: 1px solid var(--gold-accent);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        .transparency-priorities .tp-tag svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--gold-accent);
+            fill: none;
+            stroke-width: 2;
+        }
+        .transparency-priorities .tp-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-right: 4px;
         }
 
         .quick-actions {
@@ -2101,6 +2135,13 @@
             border-color: #ef9a9a;
             color: #c62828;
         }
+        /* Priority highlight */
+        .transparency-card .tc-badges .tc-badge.priority {
+            background: var(--gradient-gold);
+            border-color: var(--gold-accent);
+            color: var(--navy-dark);
+            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
+        }
 
         /* ===== TRANSPARENCY BREAKDOWN — Detailed ===== */
         .transparency-breakdown {
@@ -2125,9 +2166,17 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 10px;
+            padding: 6px 8px;
+            border-radius: var(--radius-xs);
+            transition: background 0.2s;
         }
         .transparency-breakdown .tb-row:last-child {
             margin-bottom: 0;
+        }
+        .transparency-breakdown .tb-row.priority {
+            background: #fdfbf7;
+            border: 1px solid var(--gold-accent);
+            border-left: 3px solid var(--gold-accent);
         }
         .transparency-breakdown .tb-icon {
             font-size: 16px;
@@ -2147,6 +2196,17 @@
         .transparency-breakdown .tb-label .tb-percent {
             font-weight: 700;
             color: var(--navy-dark);
+        }
+        .transparency-breakdown .tb-label .tb-priority-badge {
+            font-size: 8px;
+            font-weight: 700;
+            background: var(--gold-accent);
+            color: #fff;
+            padding: 1px 8px;
+            border-radius: 50px;
+            margin-left: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
         .transparency-breakdown .tb-track {
             height: 6px;
@@ -3239,7 +3299,8 @@
 
         /* ── Desktop (1025px+): sidebar nav layout ── */
         @media (min-width: 1025px) {
-            html, body {
+            html,
+            body {
                 overflow: hidden;
             }
 
@@ -3253,7 +3314,8 @@
             }
 
             .app-nav {
-                order: -1; /* sidebar on left */
+                order: -1;
+                /* sidebar on left */
             }
 
             /* ── Sidebar Navigation ── */
@@ -3351,7 +3413,6 @@
                 max-width: 1100px;
                 width: 100%;
                 margin: 0 auto;
-                /* Reset to block flow for side-by-side reading */
                 align-self: auto;
             }
 
@@ -3526,7 +3587,7 @@
         </div>
 
         <!-- ============================================================
-        SKIN TEST SCREEN (shown after signup or guest)
+        SKIN TEST SCREEN (5 steps: skin type, concerns, sensitivity, goal, transparency priorities)
         ============================================================ -->
         <div class="skin-test-screen" id="skinTestScreen">
             <div class="test-header">
@@ -3542,6 +3603,7 @@
                 <span class="dot" data-step="1"></span>
                 <span class="dot" data-step="2"></span>
                 <span class="dot" data-step="3"></span>
+                <span class="dot" data-step="4"></span>
             </div>
 
             <div class="test-card" id="testCard">
@@ -3564,290 +3626,295 @@
 
             <div class="app-body">
 
-            <!-- HEADER -->
-            <header class="app-header">
-                <div class="logo">
-                    <div class="icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" fill="rgba(255,255,255,0.25)" stroke="#fff" stroke-width="1.5"/><path d="M8.5 16.5 Q10 14 12 15.5 Q14 17 15.5 15" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
-                    </div>
-                    <span>Mirage</span>
-                </div>
-                <div class="actions">
-                    <div class="badge" onclick="showToast('🔍 Transparency score: ' + appState.transparency + '%')">
-                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                        <span id="transparencyBadge">94%</span> Transparency
-                    </div>
-                    <div class="avatar" id="userAvatar" onclick="showProfile()">A</div>
-                </div>
-            </header>
-
-            <!-- MAIN CONTENT -->
-            <div class="main-content" id="mainContent">
-
-                <!-- HOME -->
-                <div class="page active" id="page-home">
-                    <div class="greeting">
-                        <div class="hi" id="greetingTime">Good evening ✦</div>
-                        <div class="name">
-                            <span>Hello,</span>
-                            <span class="highlight" id="userName">Alex</span>
-                            <span class="wave">👋</span>
+                <!-- HEADER -->
+                <header class="app-header">
+                    <div class="logo">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0C20 10 12 2 12 2z" fill="rgba(255,255,255,0.25)" stroke="#fff" stroke-width="1.5"/><path d="M8.5 16.5 Q10 14 12 15.5 Q14 17 15.5 15" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
                         </div>
+                        <span>Mirage</span>
                     </div>
-
-                    <div class="skin-score-card">
-                        <div class="skin-score-ring">
-                            <svg viewBox="0 0 72 72">
-                                <circle class="bg-circle" cx="36" cy="36" r="30" />
-                                <circle class="progress-circle" cx="36" cy="36" r="30" id="scoreCircle" />
-                            </svg>
-                            <div class="score-label">
-                                <span id="scoreNumber">86</span>
-                                <small>score</small>
-                            </div>
-                        </div>
-                        <div class="skin-score-info">
-                            <h4 id="skinStatus">Balanced + Hydrated</h4>
-                            <p id="skinDesc">Your skin is in great shape. Keep it up!</p>
-                            <div class="tags" id="skinTags"></div>
-                        </div>
-                    </div>
-
-                    <div class="quick-actions">
-                        <div class="qa" onclick="navigateTo('scan')">
-                            <div class="icon-wrap navy">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-                            </div>
-                            <div class="label">Scan Face</div>
-                        </div>
-                        <div class="qa" onclick="navigateTo('products')">
-                            <div class="icon-wrap gold">
-                                <svg viewBox="0 0 24 24"><path d="M8.5 3L3 8.5l12 12L20.5 15l-12-12z"/><path d="M10.5 5L5 10.5"/><circle cx="15.5" cy="15.5" r="2"/></svg>
-                            </div>
-                            <div class="label">Products</div>
-                        </div>
-                        <div class="qa" onclick="navigateTo('routine')">
-                            <div class="icon-wrap beige">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            </div>
-                            <div class="label">Routine</div>
-                        </div>
-                    </div>
-
-                    <div class="section-header">
-                        <h3>
-                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                            Top Picks for You
-                        </h3>
-                        <a onclick="navigateTo('products')">See all</a>
-                    </div>
-                    <div class="product-scroll" id="homeProducts"></div>
-
-                    <div class="section-header" style="margin-top: 6px;">
-                        <h3>
+                    <div class="actions">
+                        <div class="badge" onclick="showToast('🔍 Transparency score: ' + appState.transparency + '%')">
                             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                            Most Transparent
-                        </h3>
-                        <a onclick="navigateTo('products')">View</a>
-                    </div>
-                    <div class="product-scroll" id="homeTransparent"></div>
-                </div>
-
-                <!-- SCAN -->
-                <div class="page" id="page-scan">
-                    <div class="scan-container">
-                        <div class="scan-title">
-                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-                            Face Scan
+                            <span id="transparencyBadge">94%</span> Transparency
                         </div>
-                        <div class="scan-sub">AI-powered shade matching &amp; skin analysis</div>
+                        <div class="avatar" id="userAvatar" onclick="showProfile()">A</div>
+                    </div>
+                </header>
 
-                        <div class="scan-frame" id="scanFrame">
-                            <div class="camera-placeholder" id="cameraPlaceholder">
-                                <div class="cute-svg">
-                                    <svg viewBox="0 0 100 100" fill="none">
-                                        <circle cx="50" cy="50" r="40" fill="var(--beige-card)" stroke="var(--beige-border)" stroke-width="2"/>
-                                        <circle cx="50" cy="50" r="28" fill="var(--beige-secondary)" stroke="var(--gold-accent)" stroke-width="1.5"/>
-                                        <circle cx="50" cy="50" r="14" fill="var(--gold-light)" opacity="0.3"/>
-                                        <circle cx="50" cy="50" r="6" fill="var(--navy-light)" opacity="0.3"/>
-                                        <path d="M30 30 L38 38 M70 30 L62 38 M30 70 L38 62 M70 70 L62 62" stroke="var(--gold-accent)" stroke-width="1.5" stroke-linecap="round"/>
-                                        <circle cx="35" cy="42" r="2" fill="var(--gold-accent)" opacity="0.6"/>
-                                        <circle cx="65" cy="42" r="2" fill="var(--gold-accent)" opacity="0.6"/>
-                                        <path d="M42 58 Q50 64 58 58" stroke="var(--navy-light)" stroke-width="1.5" stroke-linecap="round"/>
-                                        <circle cx="32" cy="32" r="1.5" fill="var(--gold-accent)" opacity="0.4"/>
-                                        <circle cx="68" cy="32" r="1.5" fill="var(--gold-accent)" opacity="0.4"/>
-                                    </svg>
-                                </div>
-                                <div class="text">Tap "Start Camera" to begin</div>
-                                <div class="sparkles">
-                                    <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
-                                        <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
-                                    </svg>
-                                    <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
-                                        <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
-                                    </svg>
-                                    <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
-                                        <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
-                                    </svg>
-                                    <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
-                                        <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
-                                    </svg>
+                <!-- MAIN CONTENT -->
+                <div class="main-content" id="mainContent">
+
+                    <!-- HOME -->
+                    <div class="page active" id="page-home">
+                        <div class="greeting">
+                            <div class="hi" id="greetingTime">Good evening ✦</div>
+                            <div class="name">
+                                <span>Hello,</span>
+                                <span class="highlight" id="userName">Alex</span>
+                                <span class="wave">👋</span>
+                            </div>
+                        </div>
+
+                        <!-- Transparency Priorities tags -->
+                        <div class="transparency-priorities" id="transparencyPriorities">
+                            <span class="tp-label">🔍 Your transparency priorities:</span>
+                        </div>
+
+                        <div class="skin-score-card">
+                            <div class="skin-score-ring">
+                                <svg viewBox="0 0 72 72">
+                                    <circle class="bg-circle" cx="36" cy="36" r="30" />
+                                    <circle class="progress-circle" cx="36" cy="36" r="30" id="scoreCircle" />
+                                </svg>
+                                <div class="score-label">
+                                    <span id="scoreNumber">86</span>
+                                    <small>score</small>
                                 </div>
                             </div>
-                            <video id="videoElement" autoplay playsinline></video>
-                            <canvas id="canvas"></canvas>
+                            <div class="skin-score-info">
+                                <h4 id="skinStatus">Balanced + Hydrated</h4>
+                                <p id="skinDesc">Your skin is in great shape. Keep it up!</p>
+                                <div class="tags" id="skinTags"></div>
+                            </div>
                         </div>
 
-                        <div class="scan-controls">
-                            <button class="scan-btn" id="startCameraBtn">
-                                <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                                <span class="btn-text">Start Camera</span>
-                            </button>
-                            <button class="scan-btn gold" id="captureBtn" disabled>
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-                                <span class="btn-text">Capture &amp; Analyze</span>
-                                <span class="spinner"></span>
-                            </button>
-                            <button class="scan-btn outline" id="stopCameraBtn" disabled>
-                                <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12"/></svg>
-                                <span class="btn-text">Stop</span>
-                            </button>
+                        <div class="quick-actions">
+                            <div class="qa" onclick="navigateTo('scan')">
+                                <div class="icon-wrap navy">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                                </div>
+                                <div class="label">Scan Face</div>
+                            </div>
+                            <div class="qa" onclick="navigateTo('products')">
+                                <div class="icon-wrap gold">
+                                    <svg viewBox="0 0 24 24"><path d="M8.5 3L3 8.5l12 12L20.5 15l-12-12z"/><path d="M10.5 5L5 10.5"/><circle cx="15.5" cy="15.5" r="2"/></svg>
+                                </div>
+                                <div class="label">Products</div>
+                            </div>
+                            <div class="qa" onclick="navigateTo('routine')">
+                                <div class="icon-wrap beige">
+                                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                </div>
+                                <div class="label">Routine</div>
+                            </div>
                         </div>
 
-                        <div class="scan-results" id="scanResults">
-                            <div class="shade-match-display">
-                                <div class="shade-swatch" id="shadeSwatch"></div>
-                                <div class="shade-info">
-                                    <h4 id="shadeName">Warm Almond</h4>
-                                    <p id="shadeDesc">Your perfect match · 98% accuracy</p>
-                                    <span class="shade-code" id="shadeCode">#D4A373 · NARS L3.5</span>
+                        <div class="section-header">
+                            <h3>
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                Top Picks for You
+                            </h3>
+                            <a onclick="navigateTo('products')">See all</a>
+                        </div>
+                        <div class="product-scroll" id="homeProducts"></div>
+
+                        <div class="section-header" style="margin-top: 6px;">
+                            <h3>
+                                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                                Most Transparent
+                            </h3>
+                            <a onclick="navigateTo('products')">View</a>
+                        </div>
+                        <div class="product-scroll" id="homeTransparent"></div>
+                    </div>
+
+                    <!-- SCAN -->
+                    <div class="page" id="page-scan">
+                        <div class="scan-container">
+                            <div class="scan-title">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                                Face Scan
+                            </div>
+                            <div class="scan-sub">AI-powered shade matching &amp; skin analysis</div>
+
+                            <div class="scan-frame" id="scanFrame">
+                                <div class="camera-placeholder" id="cameraPlaceholder">
+                                    <div class="cute-svg">
+                                        <svg viewBox="0 0 100 100" fill="none">
+                                            <circle cx="50" cy="50" r="40" fill="var(--beige-card)" stroke="var(--beige-border)" stroke-width="2"/>
+                                            <circle cx="50" cy="50" r="28" fill="var(--beige-secondary)" stroke="var(--gold-accent)" stroke-width="1.5"/>
+                                            <circle cx="50" cy="50" r="14" fill="var(--gold-light)" opacity="0.3"/>
+                                            <circle cx="50" cy="50" r="6" fill="var(--navy-light)" opacity="0.3"/>
+                                            <path d="M30 30 L38 38 M70 30 L62 38 M30 70 L38 62 M70 70 L62 62" stroke="var(--gold-accent)" stroke-width="1.5" stroke-linecap="round"/>
+                                            <circle cx="35" cy="42" r="2" fill="var(--gold-accent)" opacity="0.6"/>
+                                            <circle cx="65" cy="42" r="2" fill="var(--gold-accent)" opacity="0.6"/>
+                                            <path d="M42 58 Q50 64 58 58" stroke="var(--navy-light)" stroke-width="1.5" stroke-linecap="round"/>
+                                            <circle cx="32" cy="32" r="1.5" fill="var(--gold-accent)" opacity="0.4"/>
+                                            <circle cx="68" cy="32" r="1.5" fill="var(--gold-accent)" opacity="0.4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="text">Tap "Start Camera" to begin</div>
+                                    <div class="sparkles">
+                                        <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
+                                            <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
+                                        </svg>
+                                        <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
+                                            <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
+                                        </svg>
+                                        <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
+                                            <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
+                                        </svg>
+                                        <svg viewBox="0 0 24 24" fill="var(--gold-accent)" opacity="0.3">
+                                            <path d="M12 0l1.5 5.5L19 2l-3.5 5.5L24 7l-5.5 3.5L22 17l-5.5-3.5L12 24l-3.5-5.5L5 22l2.5-5.5L0 12l5.5-3.5L2 4l5.5 2.5L12 0z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <video id="videoElement" autoplay playsinline></video>
+                                <canvas id="canvas"></canvas>
+                            </div>
+
+                            <div class="scan-controls">
+                                <button class="scan-btn" id="startCameraBtn">
+                                    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                                    <span class="btn-text">Start Camera</span>
+                                </button>
+                                <button class="scan-btn gold" id="captureBtn" disabled>
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                                    <span class="btn-text">Capture &amp; Analyze</span>
+                                    <span class="spinner"></span>
+                                </button>
+                                <button class="scan-btn outline" id="stopCameraBtn" disabled>
+                                    <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12"/></svg>
+                                    <span class="btn-text">Stop</span>
+                                </button>
+                            </div>
+
+                            <div class="scan-results" id="scanResults">
+                                <div class="shade-match-display">
+                                    <div class="shade-swatch" id="shadeSwatch"></div>
+                                    <div class="shade-info">
+                                        <h4 id="shadeName">Warm Almond</h4>
+                                        <p id="shadeDesc">Your perfect match · 98% accuracy</p>
+                                        <span class="shade-code" id="shadeCode">#D4A373 · NARS L3.5</span>
+                                    </div>
+                                </div>
+                                <div class="result-tags" id="resultTags">
+                                    <span><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> <span id="scanTransparency">92</span>% Transparent</span>
+                                    <span><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg> Hydration +<span id="scanHydration">12</span>%</span>
+                                    <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg> Brightness +<span id="scanBrightness">8</span>%</span>
+                                    <span id="skinTypeTag"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Normal</span>
+                                </div>
+                                <div style="margin-top: 6px;">
+                                    <p style="font-size:13px; font-weight:600; color:var(--navy-dark);">Recommended for you</p>
+                                    <div class="scan-product-grid" id="scanProducts"></div>
                                 </div>
                             </div>
-                            <div class="result-tags" id="resultTags">
-                                <span><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> <span id="scanTransparency">92</span>% Transparent</span>
-                                <span><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg> Hydration +<span id="scanHydration">12</span>%</span>
-                                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg> Brightness +<span id="scanBrightness">8</span>%</span>
-                                <span id="skinTypeTag"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Normal</span>
-                            </div>
-                            <div style="margin-top: 6px;">
-                                <p style="font-size:13px; font-weight:600; color:var(--navy-dark);">Recommended for you</p>
-                                <div class="scan-product-grid" id="scanProducts"></div>
-                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- PRODUCTS -->
-                <div class="page" id="page-products">
-                    <div class="products-header">
-                        <h3>
-                            <svg viewBox="0 0 24 24"><path d="M8.5 3L3 8.5l12 12L20.5 15l-12-12z"/><path d="M10.5 5L5 10.5"/><circle cx="15.5" cy="15.5" r="2"/></svg>
-                            Your Routine
-                        </h3>
-                        <div class="header-actions">
-                            <button class="scan-barcode-btn" onclick="openAddProduct()">
-                                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                                Add
+                    <!-- PRODUCTS -->
+                    <div class="page" id="page-products">
+                        <div class="products-header">
+                            <h3>
+                                <svg viewBox="0 0 24 24"><path d="M8.5 3L3 8.5l12 12L20.5 15l-12-12z"/><path d="M10.5 5L5 10.5"/><circle cx="15.5" cy="15.5" r="2"/></svg>
+                                Your Routine
+                            </h3>
+                            <div class="header-actions">
+                                <button class="scan-barcode-btn" onclick="openAddProduct()">
+                                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                                    Add
+                                </button>
+                                <button class="scan-barcode-btn" onclick="openBarcodeScanner()">
+                                    <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 9v6M11 9v6M15 9v6M19 9v6"/></svg>
+                                    Scan
+                                </button>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">Curated for your skin profile</p>
+
+                        <div class="search-container">
+                            <span class="search-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                            </span>
+                            <input type="text" id="productSearch" placeholder="Search products by name, brand, or ingredient..." autocomplete="off" />
+                            <button class="clear-btn" id="searchClearBtn">
+                                <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
                             </button>
-                            <button class="scan-barcode-btn" onclick="openBarcodeScanner()">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 9v6M11 9v6M15 9v6M19 9v6"/></svg>
-                                Scan
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+
+                        <div class="filter-tabs" id="productFilters">
+                            <button class="active" data-filter="all">All</button>
+                            <button data-filter="serum">Serum</button>
+                            <button data-filter="moisturizer">Moisturizer</button>
+                            <button data-filter="sunscreen">Sunscreen</button>
+                            <button data-filter="favorites">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                Favorites
                             </button>
                         </div>
-                    </div>
-                    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">Curated for your skin profile</p>
-
-                    <div class="search-container">
-                        <span class="search-icon">
-                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                        </span>
-                        <input type="text" id="productSearch" placeholder="Search products by name, brand, or ingredient..." autocomplete="off" />
-                        <button class="clear-btn" id="searchClearBtn">
-                            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                        </button>
-                        <div class="search-results" id="searchResults"></div>
+                        <div class="products-grid" id="productsGrid"></div>
                     </div>
 
-                    <div class="filter-tabs" id="productFilters">
-                        <button class="active" data-filter="all">All</button>
-                        <button data-filter="serum">Serum</button>
-                        <button data-filter="moisturizer">Moisturizer</button>
-                        <button data-filter="sunscreen">Sunscreen</button>
-                        <button data-filter="favorites">
-                            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                            Favorites
-                        </button>
-                    </div>
-                    <div class="products-grid" id="productsGrid"></div>
-                </div>
-
-                <!-- ROUTINE -->
-                <div class="page" id="page-routine">
-                    <div style="margin-bottom:16px;">
-                        <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
-                            <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            My Routine
-                            <span style="font-size:11px;font-weight:400;color:var(--text-tertiary);">AM / PM</span>
-                        </h3>
-                        <p style="font-size:13px; color:var(--text-secondary);">Build your daily skincare ritual</p>
-                    </div>
-                    <div class="routine-container" id="routineContainer">
-                        <div class="routine-block">
-                            <div class="block-header">
-                                <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg> AM Routine</h4>
-                                <button class="clear-btn" onclick="clearRoutine('am')">Clear all</button>
-                            </div>
-                            <div class="routine-items" id="amRoutineItems">
-                                <div class="routine-empty">No products added yet. Tap a product to add.</div>
-                            </div>
+                    <!-- ROUTINE -->
+                    <div class="page" id="page-routine">
+                        <div style="margin-bottom:16px;">
+                            <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
+                                <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                My Routine
+                                <span style="font-size:11px;font-weight:400;color:var(--text-tertiary);">AM / PM</span>
+                            </h3>
+                            <p style="font-size:13px; color:var(--text-secondary);">Build your daily skincare ritual</p>
                         </div>
-                        <div class="routine-block">
-                            <div class="block-header">
-                                <h4><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> PM Routine</h4>
-                                <button class="clear-btn" onclick="clearRoutine('pm')">Clear all</button>
+                        <div class="routine-container" id="routineContainer">
+                            <div class="routine-block">
+                                <div class="block-header">
+                                    <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg> AM Routine</h4>
+                                    <button class="clear-btn" onclick="clearRoutine('am')">Clear all</button>
+                                </div>
+                                <div class="routine-items" id="amRoutineItems">
+                                    <div class="routine-empty">No products added yet. Tap a product to add.</div>
+                                </div>
                             </div>
-                            <div class="routine-items" id="pmRoutineItems">
-                                <div class="routine-empty">No products added yet. Tap a product to add.</div>
+                            <div class="routine-block">
+                                <div class="block-header">
+                                    <h4><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> PM Routine</h4>
+                                    <button class="clear-btn" onclick="clearRoutine('pm')">Clear all</button>
+                                </div>
+                                <div class="routine-items" id="pmRoutineItems">
+                                    <div class="routine-empty">No products added yet. Tap a product to add.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- INGREDIENTS -->
-                <div class="page" id="page-ingredients">
-                    <div style="margin-bottom:16px;">
-                        <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
-                            <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                            Ingredient Decoder
-                            <span style="font-size:10px;background:var(--gold-accent);color:#fff;padding:2px 10px;border-radius:50px;font-weight:700;">✦ LIVE</span>
-                        </h3>
-                        <p style="font-size:13px; color:var(--text-secondary);">Know what goes on your skin — <strong style="color:var(--navy-dark);" id="ingredientCount">0</strong> ingredients analyzed</p>
+                    <!-- INGREDIENTS -->
+                    <div class="page" id="page-ingredients">
+                        <div style="margin-bottom:16px;">
+                            <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
+                                <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                Ingredient Decoder
+                                <span style="font-size:10px;background:var(--gold-accent);color:#fff;padding:2px 10px;border-radius:50px;font-weight:700;">✦ LIVE</span>
+                            </h3>
+                            <p style="font-size:13px; color:var(--text-secondary);">Know what goes on your skin — <strong style="color:var(--navy-dark);" id="ingredientCount">0</strong> ingredients analyzed</p>
+                        </div>
+                        <div class="filter-tabs" id="ingredientFilters">
+                            <button class="active" data-filter="all">All</button>
+                            <button data-filter="safe"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 6L9 17l-5-5"/></svg> Safe</button>
+                            <button data-filter="caution"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg> Caution</button>
+                            <button data-filter="avoid"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M18 6L6 18M6 6l12 12"/></svg> Avoid</button>
+                        </div>
+                        <div class="ingredient-search">
+                            <input type="text" id="ingredientSearch" placeholder="Search ingredients..." />
+                        </div>
+                        <div class="ingredient-list" id="ingredientList"></div>
                     </div>
-                    <div class="filter-tabs" id="ingredientFilters">
-                        <button class="active" data-filter="all">All</button>
-                        <button data-filter="safe"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 6L9 17l-5-5"/></svg> Safe</button>
-                        <button data-filter="caution"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg> Caution</button>
-                        <button data-filter="avoid"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M18 6L6 18M6 6l12 12"/></svg> Avoid</button>
-                    </div>
-                    <div class="ingredient-search">
-                        <input type="text" id="ingredientSearch" placeholder="Search ingredients..." />
-                    </div>
-                    <div class="ingredient-list" id="ingredientList"></div>
-                </div>
 
-                <!-- CONCERNS -->
-                <div class="page" id="page-concerns">
-                    <div style="margin-bottom:16px;">
-                        <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
-                            <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                            Skin Concerns
-                        </h3>
-                        <p style="font-size:13px; color:var(--text-secondary);">Track &amp; manage your skin goals</p>
+                    <!-- CONCERNS -->
+                    <div class="page" id="page-concerns">
+                        <div style="margin-bottom:16px;">
+                            <h3 style="font-size:20px; font-weight:700; letter-spacing:-0.3px; color:var(--navy-dark); display:flex; align-items:center; gap:8px;">
+                                <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                Skin Concerns
+                            </h3>
+                            <p style="font-size:13px; color:var(--text-secondary);">Track &amp; manage your skin goals</p>
+                        </div>
+                        <div class="concerns-grid" id="concernsGrid"></div>
                     </div>
-                    <div class="concerns-grid" id="concernsGrid"></div>
-                </div>
 
-            </div>
+                </div>
 
             </div><!-- /app-body -->
 
@@ -3993,9 +4060,9 @@
             vegan: false,
             sources: [
                 { title: 'CeraVe Ingredient Safety Report', preview: 'A comprehensive analysis of CeraVe\'s ingredient safety and potential irritants, published by the Environmental Working Group.',
-                url: 'https://www.ewg.org/cerave' },
+                    url: 'https://www.ewg.org/cerave' },
                 { title: 'L\'Oréal Sustainability Report 2024', preview: 'L\'Oréal\'s commitment to reducing environmental impact and ethical sourcing across its brands.',
-                url: 'https://www.loreal.com/sustainability' }
+                    url: 'https://www.loreal.com/sustainability' }
             ]
         }, {
             id: 102,
@@ -4019,9 +4086,9 @@
             vegan: true,
             sources: [
                 { title: 'The Ordinary Transparency Report', preview: 'An in-depth look at The Ordinary\'s ingredient sourcing and manufacturing transparency.',
-                url: 'https://theordinary.com/transparency' },
+                    url: 'https://theordinary.com/transparency' },
                 { title: 'Estée Lauder Ethical Sourcing Policy', preview: 'Estée Lauder\'s global policy on responsible sourcing and supply chain ethics.',
-                url: 'https://www.elcompanies.com/ethical-sourcing' }
+                    url: 'https://www.elcompanies.com/ethical-sourcing' }
             ]
         }, {
             id: 103,
@@ -4045,7 +4112,7 @@
             vegan: false,
             sources: [
                 { title: 'La Roche-Posay Sustainability Commitments', preview: 'The brand\'s efforts towards eco-design and reducing environmental footprint.',
-                url: 'https://www.laroche-posay.com/sustainability' }
+                    url: 'https://www.laroche-posay.com/sustainability' }
             ]
         }, {
             id: 104,
@@ -4069,7 +4136,7 @@
             vegan: false,
             sources: [
                 { title: 'Shiseido CSR Report 2023', preview: 'Shiseido\'s corporate social responsibility report covering environmental and ethical performance.',
-                url: 'https://www.shiseido.com/csr' }
+                    url: 'https://www.shiseido.com/csr' }
             ]
         }, {
             id: 105,
@@ -4093,7 +4160,7 @@
             vegan: true,
             sources: [
                 { title: 'Paula\'s Choice Ingredient Glossary', preview: 'Detailed breakdown of ingredients used and their safety ratings.',
-                url: 'https://www.paulaschoice.com/ingredients' }
+                    url: 'https://www.paulaschoice.com/ingredients' }
             ]
         }, {
             id: 106,
@@ -4117,7 +4184,7 @@
             vegan: false,
             sources: [
                 { title: 'Clinique Sustainability Update', preview: 'Clinique\'s progress on sustainable packaging and responsible sourcing.',
-                url: 'https://www.clinique.com/sustainability' }
+                    url: 'https://www.clinique.com/sustainability' }
             ]
         }, {
             id: 107,
@@ -4141,7 +4208,7 @@
             vegan: false,
             sources: [
                 { title: 'Kiehl\'s Recycling Program', preview: 'Details on Kiehl\'s in-store recycling and take-back programs.',
-                url: 'https://www.kiehls.com/recycle' }
+                    url: 'https://www.kiehls.com/recycle' }
             ]
         }, {
             id: 108,
@@ -4165,9 +4232,9 @@
             vegan: false,
             sources: [
                 { title: 'Farmacy Clean Beauty Commitment', preview: 'Farmacy\'s pledge to clean ingredients and sustainable sourcing.',
-                url: 'https://www.farmacy.com/clean' },
+                    url: 'https://www.farmacy.com/clean' },
                 { title: 'P&G Responsible Sourcing', preview: 'Procter & Gamble\'s global standards for raw material procurement.',
-                url: 'https://www.pg.com/responsible-sourcing' }
+                    url: 'https://www.pg.com/responsible-sourcing' }
             ]
         }, {
             id: 109,
@@ -4191,7 +4258,7 @@
             vegan: true,
             sources: [
                 { title: 'Glow Recipe Ingredient Transparency', preview: 'How Glow Recipe sources and formulates its products.',
-                url: 'https://www.glowrecipe.com/transparency' }
+                    url: 'https://www.glowrecipe.com/transparency' }
             ]
         }, {
             id: 110,
@@ -4215,7 +4282,7 @@
             vegan: false,
             sources: [
                 { title: 'SkinCeuticals Clinical Studies', preview: 'Published clinical research on the efficacy of their formulations.',
-                url: 'https://www.skinceuticals.com/research' }
+                    url: 'https://www.skinceuticals.com/research' }
             ]
         }, {
             id: 111,
@@ -4239,9 +4306,9 @@
             vegan: false,
             sources: [
                 { title: 'Tatcha Sustainability Journey', preview: 'Tatcha\'s commitment to preserving Japanese beauty traditions and sustainability.',
-                url: 'https://www.tatcha.com/sustainability' },
+                    url: 'https://www.tatcha.com/sustainability' },
                 { title: 'Unilever Ethical Sourcing', preview: 'Unilever\'s policies on responsible sourcing and ethical supply chains.',
-                url: 'https://www.unilever.com/ethics' }
+                    url: 'https://www.unilever.com/ethics' }
             ]
         }, {
             id: 112,
@@ -4265,7 +4332,7 @@
             vegan: true,
             sources: [
                 { title: 'Supergoop! Sun Safety Mission', preview: 'Supergoop!\'s focus on educating consumers about sun protection and safety.',
-                url: 'https://www.supergoop.com/mission' }
+                    url: 'https://www.supergoop.com/mission' }
             ]
         }, {
             id: 113,
@@ -4289,9 +4356,9 @@
             vegan: true,
             sources: [
                 { title: 'Biossance Sustainability Report', preview: 'Biossance\'s detailed report on sustainable sourcing and eco-friendly packaging.',
-                url: 'https://www.biossance.com/sustainability' },
+                    url: 'https://www.biossance.com/sustainability' },
                 { title: 'Amyris Clean Beauty Initiative', preview: 'Amyris\'s commitment to clean, biotech-derived ingredients.',
-                url: 'https://www.amyris.com/clean-beauty' }
+                    url: 'https://www.amyris.com/clean-beauty' }
             ]
         }, {
             id: 114,
@@ -4315,7 +4382,7 @@
             vegan: true,
             sources: [
                 { title: 'Youth to the People Transparency Dashboard', preview: 'Interactive dashboard showing product ingredients and sourcing.',
-                url: 'https://www.youthtothepeople.com/transparency' }
+                    url: 'https://www.youthtothepeople.com/transparency' }
             ]
         }, {
             id: 115,
@@ -4339,7 +4406,7 @@
             vegan: true,
             sources: [
                 { title: 'Krave Beauty Ingredient Philosophy', preview: 'Krave Beauty\'s approach to safe, effective, and transparent ingredients.',
-                url: 'https://www.kravebeauty.com/philosophy' }
+                    url: 'https://www.kravebeauty.com/philosophy' }
             ]
         }];
 
@@ -4425,8 +4492,9 @@
             skinConcerns: ['pigmentation'],
             skinGoals: ['even-toned'],
             lifestyle: ['moderate-sun', 'good-sleep'],
-            // NEW: product reviews store
             productReviews: {},
+            // NEW: transparency priorities
+            transparencyPriorities: [],
         };
 
         let appState = loadState();
@@ -4444,8 +4512,8 @@
                 const saved = localStorage.getItem('mirageState');
                 if (saved) {
                     const parsed = JSON.parse(saved);
-                    // Ensure productReviews exists
                     if (!parsed.productReviews) parsed.productReviews = {};
+                    if (!parsed.transparencyPriorities) parsed.transparencyPriorities = [];
                     return { ...defaultState, ...parsed };
                 }
             } catch (e) {}
@@ -4521,7 +4589,6 @@
         }
 
         function calculateTransparency(ingredients, brandEthics, packaging, carbon, crueltyFree, vegan) {
-            // Ingredient safety score (50% weight)
             if (!ingredients || ingredients.length === 0) return 75;
             const statuses = ingredients.map(i => {
                 const s = getIngredientStatus(i);
@@ -4535,12 +4602,10 @@
             ingScore -= (avoid / statuses.length) * 20;
             ingScore = Math.min(100, Math.max(30, Math.round(ingScore)));
 
-            // Cruelty-free & vegan bonus
             let ethicsBonus = 0;
             if (crueltyFree) ethicsBonus += 5;
             if (vegan) ethicsBonus += 5;
 
-            // Weighted: ingredients 45%, brand ethics 20%, packaging 15%, carbon 10%, ethics 10%
             const total = Math.round(
                 ingScore * 0.45 +
                 (brandEthics || 75) * 0.20 +
@@ -4552,16 +4617,89 @@
         }
 
         // ============================================================
-        // REVIEWS — NEW FEATURE
+        // TRANSPARENCY PRIORITIES — Mapping & Helpers
         // ============================================================
 
-        /** Get all reviews for a product, sorted newest first */
+        /** The 6 transparency dimensions we track */
+        const TRANSPARENCY_DIMENSIONS = [
+            { key: 'ingredient-safety', icon: '🌿', label: 'Ingredient Safety', desc: 'Clean, non-toxic ingredients' },
+            { key: 'sourcing-ethics', icon: '🏭', label: 'Sourcing & Ethics', desc: 'Ethical sourcing, fair trade' },
+            { key: 'manufacturing', icon: '🔬', label: 'Manufacturing Practices', desc: 'Clean production, energy use' },
+            { key: 'packaging', icon: '📦', label: 'Packaging Transparency', desc: 'Recyclable, sustainable packaging' },
+            { key: 'brand-ethics', icon: '💚', label: 'Brand Ethics', desc: 'Corporate responsibility' },
+            { key: 'environmental', icon: '🌍', label: 'Environmental Impact', desc: 'Carbon footprint, sustainability' },
+        ];
+
+        /** Get a product's score for a specific transparency dimension */
+        function getDimensionScore(product, dimKey) {
+            const map = {
+                'ingredient-safety': (p) => {
+                    const ingredients = p.ingredients || [];
+                    if (ingredients.length === 0) return 75;
+                    const statuses = ingredients.map(i => {
+                        const s = getIngredientStatus(i);
+                        return s ? s.status : 'safe';
+                    });
+                    const safe = statuses.filter(s => s === 'safe').length;
+                    return Math.round(75 + (safe / statuses.length) * 25);
+                },
+                'sourcing-ethics': (p) => {
+                    let score = p.brandEthics || 75;
+                    if (p.crueltyFree) score += 8;
+                    if (p.vegan) score += 8;
+                    return Math.min(100, score);
+                },
+                'manufacturing': (p) => Math.min(100, Math.max(20, 100 - (p.carbonFootprint || 50) + 20)),
+                'packaging': (p) => p.packaging || 75,
+                'brand-ethics': (p) => p.brandEthics || 75,
+                'environmental': (p) => Math.min(100, Math.max(20, 100 - (p.carbonFootprint || 50) + 10)),
+            };
+            return (map[dimKey] || (() => 75))(product);
+        }
+
+        /** Compute a "priority match" score for a product based on user's priorities */
+        function computePriorityMatch(product) {
+            const priorities = appState.transparencyPriorities || [];
+            if (priorities.length === 0) return product.match || 85;
+
+            let totalScore = 0;
+            let weightSum = 0;
+            priorities.forEach(dimKey => {
+                const score = getDimensionScore(product, dimKey);
+                // Weight: higher priority = more weight (all equal for now, but we could add weighting later)
+                totalScore += score;
+                weightSum += 1;
+            });
+            const avg = weightSum > 0 ? Math.round(totalScore / weightSum) : (product.match || 85);
+            // Blend with existing match (70% priority, 30% original match)
+            return Math.round(avg * 0.7 + (product.match || 85) * 0.3);
+        }
+
+        /** Check if a product is a "priority highlight" — all priority dims score >= 70 */
+        function isPriorityHighlight(product) {
+            const priorities = appState.transparencyPriorities || [];
+            if (priorities.length === 0) return false;
+            return priorities.every(dimKey => {
+                const score = getDimensionScore(product, dimKey);
+                return score >= 70;
+            });
+        }
+
+        /** Get the list of priority dimension objects (full metadata) */
+        function getPriorityDimensions() {
+            const keys = appState.transparencyPriorities || [];
+            return TRANSPARENCY_DIMENSIONS.filter(d => keys.includes(d.key));
+        }
+
+        // ============================================================
+        // REVIEWS
+        // ============================================================
+
         function getProductReviews(productId) {
             const reviews = appState.productReviews[productId] || [];
             return [...reviews].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
         }
 
-        /** Compute average rating for a product */
         function getAverageRating(productId) {
             const reviews = getProductReviews(productId);
             if (reviews.length === 0) return null;
@@ -4569,7 +4707,6 @@
             return Math.round((sum / reviews.length) * 10) / 10;
         }
 
-        /** Submit a new review */
         function submitReview(productId, rating, text) {
             if (!appState.productReviews) appState.productReviews = {};
             if (!appState.productReviews[productId]) appState.productReviews[productId] = [];
@@ -4583,12 +4720,10 @@
             };
             appState.productReviews[productId].push(review);
             saveState();
-            // Re-render the detail view
             showProductDetail(productId);
             showToast('⭐ Review submitted! Thank you for your feedback.');
         }
 
-        /** Render star HTML for a given rating (full/half/empty) */
         function renderStars(rating, max = 5) {
             const full = Math.floor(rating);
             const half = rating % 1 >= 0.5 ? 1 : 0;
@@ -4600,7 +4735,6 @@
             return html;
         }
 
-        /** Render the review section HTML for a product detail view */
         function renderReviewsSection(productId) {
             const reviews = getProductReviews(productId);
             const avg = getAverageRating(productId);
@@ -4641,7 +4775,6 @@
                             </div>
                         </div>
 
-                        <!-- Review Form -->
                         <div class="review-form" id="reviewForm">
                             <div class="rf-row">
                                 <label>Your Rating</label>
@@ -4669,7 +4802,6 @@
                             </div>
                         </div>
 
-                        <!-- Review List -->
                         <div class="review-list" id="reviewList">
                             ${listHtml}
                         </div>
@@ -4677,7 +4809,6 @@
                 `;
         }
 
-        /** Handle review submission from the detail view */
         function handleReviewSubmit(productId) {
             const stars = document.querySelector('input[name="stars"]:checked');
             if (!stars) {
@@ -4687,20 +4818,17 @@
             const rating = parseInt(stars.value);
             const text = document.getElementById('reviewText').value.trim() || 'No comment provided.';
             submitReview(productId, rating, text);
-            // Clear form
             document.querySelectorAll('input[name="stars"]').forEach(el => el.checked = false);
             document.getElementById('reviewText').value = '';
             document.getElementById('ratingLabel').textContent = 'Tap a star';
         }
 
-        /** Clear the review form */
         function clearReviewForm() {
             document.querySelectorAll('input[name="stars"]').forEach(el => el.checked = false);
             document.getElementById('reviewText').value = '';
             document.getElementById('ratingLabel').textContent = 'Tap a star';
         }
 
-        /** Attach star-rating label update listener (called once on DOM ready) */
         function initStarRatingListener() {
             document.addEventListener('change', function(e) {
                 if (e.target && e.target.name === 'stars') {
@@ -4715,7 +4843,7 @@
         }
 
         // ============================================================
-        // SKIN TEST
+        // SKIN TEST — 5 steps (added transparency priorities)
         // ============================================================
         const testQuestions = [{
             question: "What's your skin type?",
@@ -4761,6 +4889,17 @@
                 { value: 'glowing', label: 'Glowing / Radiant', icon: '☀️' },
             ],
             key: 'goal'
+        }, {
+            question: "What transparency aspects matter most to you?",
+            sub: "Select all that apply — we'll prioritize products that excel in these areas",
+            options: TRANSPARENCY_DIMENSIONS.map(d => ({
+                value: d.key,
+                label: d.label,
+                icon: d.icon,
+                desc: d.desc
+            })),
+            key: 'transparencyPriorities',
+            multi: true
         }];
 
         function renderTestStep() {
@@ -4778,19 +4917,32 @@
 
             let optionsHtml = q.options.map(opt => {
                 const selected = isMulti ? (prevAnswer || []).includes(opt.value) : (prevAnswer === opt.value);
+                const descHtml = opt.desc ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">${opt.desc}</div>` :
+                    '';
                 return `
                         <div class="opt ${selected ? 'selected' : ''}" data-value="${opt.value}" onclick="selectTestOption('${q.key}', '${opt.value}', ${isMulti})">
                             <div class="opt-icon">${opt.icon}</div>
-                            <div class="opt-label">${opt.label}</div>
+                            <div class="opt-label">${opt.label} ${descHtml}</div>
                             <div class="opt-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
                         </div>
                     `;
             }).join('');
 
+            // Show a helpful note on the transparency step
+            let extraNote = '';
+            if (q.key === 'transparencyPriorities') {
+                extraNote = `
+                        <div style="margin-top:12px;padding:10px 14px;background:var(--beige-secondary);border-radius:var(--radius-sm);border:1px solid var(--beige-border);font-size:12px;color:var(--text-secondary);">
+                            💡 <strong>Why this matters:</strong> We'll highlight products that score highest in your priority areas and show you a tailored transparency report.
+                        </div>
+                    `;
+            }
+
             card.innerHTML = `
                     <div class="question">${q.question}</div>
                     <div class="question-sub">${q.sub}</div>
                     <div class="options">${optionsHtml}</div>
+                    ${extraNote}
                 `;
 
             const hasAnswer = isMulti ? (prevAnswer && prevAnswer.length > 0) : (prevAnswer !== null && prevAnswer !== '');
@@ -4860,6 +5012,9 @@
             appState.concerns = concerns;
             appState.skinSensitivity = testAnswers.sensitivity || 'medium';
             appState.skinGoals = testAnswers.goal ? [testAnswers.goal] : ['even-toned'];
+            // NEW: save transparency priorities
+            const priorities = testAnswers.transparencyPriorities || [];
+            appState.transparencyPriorities = priorities;
             updateScoreFromConcerns(concerns);
             appState.skinTestCompleted = true;
             saveState();
@@ -4876,7 +5031,8 @@
                 }
             }
 
-            showToast('🎉 Skin profile complete! Welcome to Mirage.');
+            const priorityNames = getPriorityDimensions().map(d => d.label).join(', ');
+            showToast(`🎉 Profile complete! Prioritizing: ${priorityNames || 'all transparency aspects'}`);
             hideSkinTestAndShowApp();
         }
 
@@ -4944,6 +5100,22 @@
             const displayName = appState.isGuest ? 'Guest' : (appState.userFullName || appState.userName || 'Alex');
             document.getElementById('userName').textContent = displayName;
 
+            // Render transparency priorities
+            const priorities = getPriorityDimensions();
+            const container = document.getElementById('transparencyPriorities');
+            if (priorities.length > 0) {
+                container.innerHTML = `
+                        <span class="tp-label">🔍 Your transparency priorities:</span>
+                        ${priorities.map(d => `
+                            <span class="tp-tag">${d.icon} ${d.label}</span>
+                        `).join('')}
+                    `;
+            } else {
+                container.innerHTML = `
+                        <span class="tp-label">🔍 No transparency priorities set — showing all products</span>
+                    `;
+            }
+
             const score = appState.score;
             document.getElementById('scoreNumber').textContent = score;
             const circle = document.getElementById('scoreCircle');
@@ -4984,15 +5156,30 @@
             }
 
             const allProducts = getAllProducts();
-            // Sort by match for top picks
-            const sortedByMatch = [...allProducts].sort((a, b) => (b.match || 0) - (a.match || 0));
-            renderProductCards('homeProducts', sortedByMatch.slice(0, 4));
-            // Most transparent
+
+            // Top picks: sort by priority match (if priorities exist) or match
+            const sortedByPriority = [...allProducts].map(p => {
+                const priorityMatch = computePriorityMatch(p);
+                const highlight = isPriorityHighlight(p);
+                return { ...p, priorityMatch, highlight };
+            }).sort((a, b) => {
+                // If priorities exist, sort by priorityMatch first, then match
+                if (appState.transparencyPriorities.length > 0) {
+                    if (a.highlight && !b.highlight) return -1;
+                    if (!a.highlight && b.highlight) return 1;
+                    return (b.priorityMatch || 0) - (a.priorityMatch || 0);
+                }
+                return (b.match || 0) - (a.match || 0);
+            });
+
+            renderProductCards('homeProducts', sortedByPriority.slice(0, 4), true);
+
+            // Most transparent: sort by transparency
             const sortedByTransparency = [...allProducts].sort((a, b) => (b.transparency || 0) - (a.transparency || 0));
-            renderProductCards('homeTransparent', sortedByTransparency.slice(0, 4));
+            renderProductCards('homeTransparent', sortedByTransparency.slice(0, 4), false);
         }
 
-        function renderProductCards(containerId, items) {
+        function renderProductCards(containerId, items, showPriorityBadge) {
             const container = document.getElementById(containerId);
             if (!container) return;
             if (!items || items.length === 0) {
@@ -5000,10 +5187,15 @@
                     `<div style="width:100%;padding:20px;text-align:center;color:var(--text-tertiary);">No products found</div>`;
                 return;
             }
+            const priorities = appState.transparencyPriorities || [];
             container.innerHTML = items.map(p => {
                 const transparency = p.transparency || 75;
+                const isHighlight = priorities.length > 0 && isPriorityHighlight(p);
+                const priorityMatch = computePriorityMatch(p);
+                const matchDisplay = priorities.length > 0 ? priorityMatch : (p.match || 85);
                 return `
-                    <div class="product-card" onclick="showProductDetail(${p.id})">
+                    <div class="product-card" onclick="showProductDetail(${p.id})" style="${isHighlight ? 'border-color: var(--gold-accent); border-width: 2px;' : ''}">
+                        ${isHighlight && showPriorityBadge ? `<div style="position:absolute;top:6px;left:6px;background:var(--gradient-gold);color:var(--navy-dark);font-size:7px;font-weight:700;padding:2px 8px;border-radius:50px;z-index:2;text-transform:uppercase;letter-spacing:0.3px;">✦ Priority</div>` : ''}
                         <div class="transparency-ring">
                             <svg viewBox="0 0 36 36">
                                 <circle class="ring-bg" cx="18" cy="18" r="15" />
@@ -5022,7 +5214,7 @@
                         <div class="p-brand">${p.brand} ${p.isCustom ? '✨' : ''}</div>
                         <div class="p-bottom">
                             <span class="price">${p.price || '—'}</span>
-                            <span class="match">${p.match || 85}%</span>
+                            <span class="match">${matchDisplay}%</span>
                         </div>
                     </div>
                 `;
@@ -5039,7 +5231,9 @@
             items = items.map(p => {
                 let matchBoost = 0;
                 if (p.skinType && p.skinType.includes(skinType)) matchBoost += 10;
-                return { ...p, match: Math.min(100, (p.match || 80) + matchBoost) };
+                // Priority boost
+                const priorityMatch = computePriorityMatch(p);
+                return { ...p, match: Math.min(100, (p.match || 80) + matchBoost), priorityMatch };
             });
 
             if (activeFilter === 'favorites') {
@@ -5057,7 +5251,13 @@
                 );
             }
 
-            items = items.sort((a, b) => (b.match || 0) - (a.match || 0));
+            // Sort: if priorities exist, use priorityMatch; else match
+            items = items.sort((a, b) => {
+                if (appState.transparencyPriorities.length > 0) {
+                    return (b.priorityMatch || 0) - (a.priorityMatch || 0);
+                }
+                return (b.match || 0) - (a.match || 0);
+            });
 
             if (items.length === 0) {
                 grid.innerHTML =
@@ -5065,11 +5265,16 @@
                 return;
             }
 
+            const isPriorityMode = appState.transparencyPriorities.length > 0;
+
             grid.innerHTML = items.map(p => {
                 const isFavorite = appState.favorites.includes(p.id);
                 const transparency = p.transparency || 75;
+                const matchDisplay = isPriorityMode ? (p.priorityMatch || p.match || 85) : (p.match || 85);
+                const isHighlight = isPriorityMode && isPriorityHighlight(p);
                 return `
-                    <div class="product-card" onclick="showProductDetail(${p.id})">
+                    <div class="product-card" onclick="showProductDetail(${p.id})" style="${isHighlight ? 'border-color: var(--gold-accent); border-width: 2px;' : ''}">
+                        ${isHighlight ? `<div style="position:absolute;top:6px;left:6px;background:var(--gradient-gold);color:var(--navy-dark);font-size:7px;font-weight:700;padding:2px 8px;border-radius:50px;z-index:2;text-transform:uppercase;letter-spacing:0.3px;">✦ Priority</div>` : ''}
                         <div class="transparency-ring">
                             <svg viewBox="0 0 36 36">
                                 <circle class="ring-bg" cx="18" cy="18" r="15" />
@@ -5088,7 +5293,7 @@
                         <div class="p-brand">${p.brand} ${p.isCustom ? '✨' : ''}</div>
                         <div class="p-bottom">
                             <span class="price">${p.price || '—'}</span>
-                            <span class="match">${p.match || 85}%</span>
+                            <span class="match">${matchDisplay}%</span>
                         </div>
                         <div class="favorite-btn ${isFavorite ? 'liked' : ''}" onclick="event.stopPropagation();toggleFavorite(${p.id})">
                             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -5122,7 +5327,7 @@
             }
             if (search) {
                 items = items.filter(i => i.name.toLowerCase().includes(search) || (i.desc && i.desc.toLowerCase()
-                .includes(search)));
+                    .includes(search)));
             }
 
             document.getElementById('ingredientCount').textContent = getAllIngredients().length;
@@ -5267,7 +5472,6 @@
 
             const badIngredients = ingredientAnalysis.filter(i => i.status === 'avoid' || i.status === 'caution');
 
-            // Transparency breakdown
             const transparency = product.transparency || calculateTransparency(
                 ingredients,
                 product.brandEthics || 75,
@@ -5281,57 +5485,58 @@
             const packaging = product.packaging || 75;
             const carbon = product.carbonFootprint || 75;
 
-            // Calculate ingredient safety score
             const safeCount = ingredientAnalysis.filter(i => i.status === 'safe').length;
             const ingredientSafety = ingredientAnalysis.length > 0 ?
                 Math.round((safeCount / ingredientAnalysis.length) * 100) :
                 75;
 
-            // Cruelty-free & vegan
             const cf = product.crueltyFree || false;
             const vg = product.vegan || false;
             const ethicsScore = cf && vg ? 100 : cf || vg ? 70 : 40;
-
-            // Sourcing & ethics (combination of brand ethics + cruelty-free/vegan)
             const sourcingScore = Math.round((brandEthics + ethicsScore) / 2);
-
-            // Manufacturing practices (based on carbon footprint)
             const manufacturingScore = Math.min(100, Math.max(20, 100 - (carbon || 50) + 20));
 
-            // Build breakdown data
-            const breakdown = [
-                { icon: '🌿', label: 'Ingredient Safety', value: ingredientSafety, desc: 'Clean, non-toxic ingredients',
-                    cls: ingredientSafety > 70 ? 'good' : ingredientSafety > 40 ? 'warn' : 'bad' },
-                { icon: '🏭', label: 'Sourcing & Ethics', value: sourcingScore,
+            // Build breakdown data with priority detection
+            const priorities = appState.transparencyPriorities || [];
+            const breakdownData = [
+                { icon: '🌿', key: 'ingredient-safety', label: 'Ingredient Safety', value: ingredientSafety,
+                    desc: 'Clean, non-toxic ingredients', cls: ingredientSafety > 70 ? 'good' : ingredientSafety > 40 ?
+                        'warn' : 'bad' },
+                { icon: '🏭', key: 'sourcing-ethics', label: 'Sourcing & Ethics', value: sourcingScore,
                     desc: cf && vg ? 'Cruelty-free & vegan ✅' : cf ? 'Cruelty-free ✅' : vg ? 'Vegan ✅' :
                         'No ethics certifications', cls: sourcingScore > 70 ? 'good' : sourcingScore > 40 ? 'warn' :
                         'bad' },
-                { icon: '🔬', label: 'Manufacturing Practices', value: manufacturingScore,
+                { icon: '🔬', key: 'manufacturing', label: 'Manufacturing Practices', value: manufacturingScore,
                     desc: 'Clean production & energy use', cls: manufacturingScore > 70 ? 'good' : manufacturingScore > 40 ?
                         'warn' : 'bad' },
-                { icon: '📦', label: 'Packaging Transparency', value: packaging,
+                { icon: '📦', key: 'packaging', label: 'Packaging Transparency', value: packaging,
                     desc: packaging > 70 ? 'Recyclable & sustainable' : packaging > 40 ? 'Partially recyclable' :
                         'Limited packaging info', cls: packaging > 70 ? 'good' : packaging > 40 ? 'warn' : 'bad' },
-                { icon: '💚', label: 'Brand Ethics', value: brandEthics,
+                { icon: '💚', key: 'brand-ethics', label: 'Brand Ethics', value: brandEthics,
                     desc: brandEthics > 70 ? 'Strong corporate responsibility' : brandEthics > 40 ?
                         'Moderate ethical standing' : 'Needs improvement', cls: brandEthics > 70 ? 'good' : brandEthics >
                         40 ? 'warn' : 'bad' },
-                { icon: '🌍', label: 'Environmental Impact', value: Math.min(100, Math.max(20, 100 - (carbon || 50) + 10)),
+                { icon: '🌍', key: 'environmental', label: 'Environmental Impact',
+                    value: Math.min(100, Math.max(20, 100 - (carbon || 50) + 10)),
                     desc: carbon > 70 ? 'Low carbon footprint' : carbon > 40 ? 'Moderate impact' : 'High carbon footprint',
                     cls: carbon > 70 ? 'good' : carbon > 40 ? 'warn' : 'bad' },
             ];
 
+            // Mark priority rows
+            const breakdown = breakdownData.map(f => ({
+                ...f,
+                isPriority: priorities.includes(f.key),
+            }));
+
             const isInAm = (appState.routine?.am || []).includes(product.id);
             const isInPm = (appState.routine?.pm || []).includes(product.id);
 
-            // Origin info
             const parentCompany = product.parentCompany || 'Not disclosed';
             const manufacturingLocation = product.manufacturingLocation || 'Not disclosed';
             const countryOfOrigin = product.countryOfOrigin || 'Not disclosed';
             const crueltyFree = product.crueltyFree ? '✅ Yes' : '❌ No';
             const vegan = product.vegan ? '✅ Yes' : '❌ No';
 
-            // Badges
             const badges = [];
             if (product.crueltyFree) badges.push({ label: '🐰 Cruelty-Free', cls: 'green' });
             if (product.vegan) badges.push({ label: '🌱 Vegan', cls: 'green' });
@@ -5342,10 +5547,15 @@
                     parentCompany, cls: 'blue' });
             if (badIngredients.length === 0 && ingredients.length > 0) badges.push({ label: '✅ All Safe', cls: 'green' });
 
+            // Priority badge
+            const isHighlight = priorities.length > 0 && isPriorityHighlight(product);
+            if (isHighlight) {
+                badges.push({ label: '✦ Top Priority Match', cls: 'priority' });
+            }
+
             const scoreLevel = transparency >= 85 ? 'Excellent' : transparency >= 70 ? 'Good' : transparency >= 50 ?
                 'Moderate' : 'Needs Improvement';
 
-            // Sources
             const sources = product.sources || [];
 
             // Build main content
@@ -5355,9 +5565,10 @@
                             ${productImageMarkup(product)}
                         </div>
                         <div class="dh-info">
-                            <h2>${product.name}</h2>
+                            <h2>${product.name} ${isHighlight ? '✦' : ''}</h2>
                             <div class="dh-brand">${product.brand} ${product.isCustom ? '✨ Custom' : ''}</div>
                             <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">${product.price || 'Price not listed'} · ${product.category || 'Other'}</div>
+                            ${isHighlight ? '<div style="font-size:10px;color:var(--gold-accent);font-weight:700;margin-top:2px;">🌟 Matches your transparency priorities</div>' : ''}
                         </div>
                     </div>
 
@@ -5370,6 +5581,7 @@
                         <div class="tc-sub">
                             <span>${scoreLevel}</span>
                             <span style="font-size:11px;color:var(--text-tertiary);">· Based on 6 key factors</span>
+                            ${priorities.length > 0 ? `<span style="font-size:11px;color:var(--gold-accent);font-weight:600;margin-left:4px;">· ${priorities.length} priority areas</span>` : ''}
                         </div>
                         <div class="tc-bar">
                             <div class="tc-fill" style="width:${transparency}%;"></div>
@@ -5380,18 +5592,22 @@
                         </div>
                     </div>
 
-                    <!-- TRANSPARENCY BREAKDOWN — Detailed -->
+                    <!-- TRANSPARENCY BREAKDOWN — Detailed with priority highlighting -->
                     <div class="transparency-breakdown">
                         <div class="tb-title">
                             <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gold-accent);fill:none;stroke-width:2;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
                             How we calculated this score
+                            ${priorities.length > 0 ? `<span style="font-size:9px;font-weight:400;color:var(--gold-accent);">✦ Your priorities highlighted</span>` : ''}
                         </div>
                         ${breakdown.map(f => `
-                            <div class="tb-row">
+                            <div class="tb-row ${f.isPriority ? 'priority' : ''}">
                                 <div class="tb-icon">${f.icon}</div>
                                 <div class="tb-info">
                                     <div class="tb-label">
-                                        <span>${f.label}</span>
+                                        <span>
+                                            ${f.label}
+                                            ${f.isPriority ? `<span class="tb-priority-badge">Priority</span>` : ''}
+                                        </span>
                                         <span class="tb-percent">${f.value}%</span>
                                     </div>
                                     <div class="tb-track">
@@ -5404,6 +5620,7 @@
                         `).join('')}
                         <div style="font-size:9px;color:var(--text-tertiary);margin-top:10px;border-top:1px solid var(--beige-border);padding-top:8px;">
                             ⚖️ Weighted: Ingredients 45% · Brand Ethics 20% · Packaging 15% · Env. Impact 10% · Ethics 10%
+                            ${priorities.length > 0 ? ' · ✦ Priority areas receive extra attention' : ''}
                         </div>
                     </div>
 
@@ -5486,7 +5703,6 @@
                     </div>
                 `;
 
-            // Append reviews section
             mainHtml += renderReviewsSection(product.id);
 
             content.innerHTML = mainHtml;
@@ -5974,7 +6190,19 @@
                 document.getElementById('skinTypeTag').innerHTML =
                     `<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ${skinTypeDisplay[skinType] || 'Normal'}`;
 
-                const recs = getAllProducts().slice(0, 4);
+                // Show recommended products (prioritized by match)
+                let recs = getAllProducts();
+                recs = recs.map(p => ({
+                    ...p,
+                    priorityMatch: computePriorityMatch(p)
+                }));
+                if (appState.transparencyPriorities.length > 0) {
+                    recs.sort((a, b) => (b.priorityMatch || 0) - (a.priorityMatch || 0));
+                } else {
+                    recs.sort((a, b) => (b.match || 0) - (a.match || 0));
+                }
+                recs = recs.slice(0, 4);
+
                 const grid = document.getElementById('scanProducts');
                 grid.innerHTML = recs.map(p => `
                         <div class="product-card" onclick="showProductDetail(${p.id})">
@@ -5984,7 +6212,7 @@
                             <div class="p-brand">${p.brand}</div>
                             <div class="p-bottom">
                                 <span class="price">${p.price || '—'}</span>
-                                <span class="match">${p.match || 85}%</span>
+                                <span class="match">${appState.transparencyPriorities.length > 0 ? (p.priorityMatch || p.match || 85) : (p.match || 85)}%</span>
                             </div>
                         </div>
                     `).join('');
@@ -6050,6 +6278,7 @@
             }).join(', ') || 'None';
             const sensitivity = appState.skinSensitivity || 'medium';
             const goal = appState.skinGoals ? appState.skinGoals[0] || 'even-toned' : 'even-toned';
+            const priorityLabels = getPriorityDimensions().map(d => d.label).join(', ') || 'None set';
 
             const modal = document.createElement('div');
             modal.style.cssText = `
@@ -6101,6 +6330,10 @@
                                 <span style="color:var(--text-secondary);">Routine</span>
                                 <span style="font-weight:600;color:var(--navy-dark);">${(appState.routine?.am?.length||0)+(appState.routine?.pm?.length||0)} products</span>
                             </div>
+                            <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-top:1px solid var(--beige-border);padding-top:6px;margin-top:4px;">
+                                <span style="color:var(--text-secondary);">🔍 Transparency Priorities</span>
+                                <span style="font-weight:600;color:var(--navy-dark);">${priorityLabels}</span>
+                            </div>
                         </div>
                         <div style="display:flex;gap:8px;">
                             <button onclick="retakeSkinTest()" style="flex:1;padding:10px;border-radius:50px;border:1px solid var(--gold-accent);background:transparent;color:var(--gold-accent);font-weight:600;font-size:12px;cursor:pointer;transition:all 0.2s;">
@@ -6108,8 +6341,8 @@
                                 Retake Quiz
                             </button>
                             <button onclick="logout()" style="flex:1;padding:10px;border-radius:50px;border:1px solid var(--beige-border);background:transparent;color:var(--text-secondary);font-weight:600;font-size:12px;cursor:pointer;transition:all 0.2s;"
-                                    onmouseover="this.style.borderColor='#c62828';this.style.color='#c62828'" 
-                                    onmouseout="this.style.borderColor='var(--beige-border)';this.style.color='var(--text-secondary)'">
+                                onmouseover="this.style.borderColor='#c62828';this.style.color='#c62828'"
+                                onmouseout="this.style.borderColor='var(--beige-border)';this.style.color='var(--text-secondary)'">
                                 <svg viewBox="0 0 24 24" style="width:14px;height:14px;display:inline;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;margin-right:4px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                                 Sign Out
                             </button>
@@ -6125,6 +6358,7 @@
                 testAnswers = {};
                 testStep = 0;
                 appState.skinTestCompleted = false;
+                appState.transparencyPriorities = [];
                 saveState();
                 document.getElementById('appContent').style.display = 'none';
                 document.getElementById('skinTestScreen').classList.add('visible');
@@ -6156,7 +6390,6 @@
                     if (el.style.position === 'fixed') el.remove();
                 });
                 closeProductDetail();
-                // Clear auth if not guest
                 if (!appState.isGuest) {
                     localStorage.removeItem('mirageAuth');
                 }
@@ -6388,7 +6621,7 @@
             document.querySelectorAll('#productFilters button').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('#productFilters button').forEach(b => b.classList.remove(
-                    'active'));
+                        'active'));
                     this.classList.add('active');
                     renderProducts();
                 });
@@ -6426,7 +6659,6 @@
             document.getElementById('loginEmail')?.setAttribute('placeholder', 'demo@mirage.com');
             document.getElementById('loginPassword')?.setAttribute('placeholder', '•••••••• (demo123)');
 
-            // Ensure star rating label updates on change (additional safety)
             document.addEventListener('change', function(e) {
                 if (e.target && e.target.name === 'stars') {
                     const label = document.getElementById('ratingLabel');
@@ -6438,11 +6670,11 @@
             });
         });
 
-        console.log('✦ Mirage — Enhanced with Guest Access, Reviews, Transparency Score & Sources ✦');
-        console.log('👤 Users can continue as Guest and still take the skin quiz.');
-        console.log('⭐ Users can rate and review products.');
-        console.log('🔍 Products now have a detailed Transparency Score with 6-factor breakdown.');
-        console.log('📚 Sources & References section shows where the transparency data comes from.');
+        console.log('✦ Mirage — Enhanced with Transparency Priorities Quiz ✦');
+        console.log('🔍 Users now choose what transparency aspects matter most to them.');
+        console.log('🏠 Home page recommendations are filtered based on those priorities.');
+        console.log('📊 Product detail shows priority highlights in the transparency breakdown.');
+        console.log('👤 Guest access + skin quiz + reviews all included.');
         console.log('💡 Tip: Use demo@mirage.com / demo123 to login');
     </script>
 
